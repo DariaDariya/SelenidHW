@@ -1,6 +1,7 @@
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 
 
 import java.time.Duration;
@@ -22,6 +23,7 @@ public class SelenidTest {
     void shouldTestDeliveryCard() {
         open("http://localhost:9999/");
         $("[data-test-id='city'] input").setValue("Санкт-Петербург");
+        $("[data-test-id='date'] input").doubleClick().sendKeys(Keys.BACK_SPACE);
         $("[data-test-id = 'date'] input").setValue(meetingDay(3));
         $("[data-test-id='name'] input").setValue("Иванов-Васильев Иван");
         $("[data-test-id='phone'] input").setValue("+79999999999");
