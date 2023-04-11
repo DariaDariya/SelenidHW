@@ -1,3 +1,4 @@
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -15,7 +16,7 @@ import static com.codeborne.selenide.Selenide.open;
 
 public class SelenidTest {
     String meetingDay(int day) {
-        return LocalDate.now().plusDays(day).format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        return LocalDate.now().plusDays(day).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 
     }
 
@@ -29,7 +30,9 @@ public class SelenidTest {
         $("[data-test-id='phone'] input").setValue("+79999999999");
         $("[data-test-id='agreement']").click();
         $(".button__content").click();
-        $("[data-test-id='notification']").shouldBe(visible, Duration.ofSeconds(15));
+        $(".notification__content")
+                .shouldHave(Condition.text("Встреча успешно забронирована на " + meetingDay(3)), Duration.ofSeconds(15))
+                .shouldBe(Condition.visible);
 
 
     }
